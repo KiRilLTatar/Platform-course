@@ -1,0 +1,71 @@
+{% extends 'core/layout.html' %}
+{% load static%}
+
+{% block title %} Мой профиль {% endblock %}
+{% block style %} {% static "users/css/style.css" %} {% endblock %}
+
+{% block content %} 
+
+    <div class="container py-5">
+
+        <div class="overflow-hidden" style="height: 300px;">
+            <img src="{% static 'users\images\promouserwebp.webp' %}" alt="картинка профиля" class="w-100 h-100" style="object-fit: cover; filter: blur(6px);">
+        </div>
+
+        <div class="profile-header p-4 p-md-5 mb-4 text-center text-md-start">
+            <div class="row align-items-center">
+                <div class="col-md-2 text-center">
+                    <img src="{% static 'users/images/avatar.jpg' %}" alt="Фото профиля" class="profile-img " style="max-width: 165px; max-height: 165px;">
+                </div>
+                <div class="col-md-6">
+                    {% if user.is_authenticated %}
+                        <h1 class="mb-1">{{ user.full_name }}</h1>
+                        {% if user.is_teacher%}
+                            <p class="lead mb-2">Преподаватель</p>
+                        {% else %}
+                            <p class="lead mb-2">Студент</p>
+                        {% endif %}
+                        <p class="mb-3"><i class="fas fa-map-marker-alt me-2"></i> Казань, Россия</p>
+                    {% endif %}
+                    <div class="d-flex justify-content-center justify-content-md-start">
+                        <a href="#" class="social-icon me-2"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-icon me-2"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="social-icon me-2"><i class="fab fa-vk"></i></a>
+                        <a href="#" class="social-icon"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-4 mt-md-0">
+                    {% block but %} {% endblock %}
+                    <button class="btn btn-outline-dark btn-lg w-100">
+                        <i class="fas fa-share-alt me-2"></i>Поделиться
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="container py-4">
+            <div class="header">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/users/profile/info/' %}active{% endif %}" href="{% url 'profile_info' %}">о себе</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/users/profile/course/' %}active{% endif %}" href="{% url 'profile_course' %}">мои курсы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/users/profile/later/' %}active{% endif %}" href="{% url 'profile_later' %}">позже</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/users/profile/statistic/' %}active{% endif %}" href="{% url 'profile_statistic' %}">Статистика</a>
+                    </li>
+                </ul>
+            </div>
+
+            
+            {% block main_content %}
+
+            {% endblock%}
+
+
+    </div>
+{% endblock %}

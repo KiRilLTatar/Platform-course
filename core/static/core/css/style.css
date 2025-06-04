@@ -1,0 +1,133 @@
+
+.modal-backdrop.show {
+    backdrop-filter: blur(6px);
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+        .footer {
+            background-color: #ffffff;
+            color: #7b2cbf;
+            padding: 30px 15px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #7b2cbf;
+            padding-bottom: 20px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 150px;
+            margin-bottom: 15px;
+            padding: 0 10px;
+        }
+        
+        .footer-column-title {
+            color: #7b2cbf;
+            font-size: 14px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .footer-link {
+            display: block;
+            color: #7b2cbf;
+            text-decoration: none;
+            margin-bottom: 8px;
+            transition: color 0.2s;
+        }
+        
+        .footer-link:hover {
+            color: #7b2cbf;
+        }
+        
+        .footer-legal {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .footer-legal-link {
+            color: #7b2cbf;
+            text-decoration: none;
+            margin-right: 15px;
+            margin-bottom: 8px;
+            transition: color 0.2s;
+        }
+        
+        .footer-legal-link:hover {
+            color: #7b2cbf;
+        }
+        
+        .footer-copyright {
+            color: #000000;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .footer-copyright a {
+            color: #7b2cbf;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-copyright a:hover {
+            color: #7b2cbf;
+        }
+
+.hero-section {
+    background-color: #f8f9fa;
+    padding: 5rem 0;
+    position: relative;
+    overflow: hidden;
+}
+.sun-background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70em;
+    height: 23em;
+    background: radial-gradient(ellipse at center, rgba(177, 44, 119, 0.439) 0%, rgba(255,236,179,0) 70%);
+    border-radius: 50%;
+    z-index: 0;
+}
+.search-container {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    margin: 0 auto;
+}
+.search-box {
+    position: relative;
+}
+.search-input {
+    padding: 1rem 1.5rem;
+    border-radius: 50px;
+    border: 1px solid #ced4da;
+    background-color: rgba(255, 255, 255, 0.91);
+    position: relative;
+}
+.search-btn {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    bottom: 5px;
+    border-radius: 50px;
+    padding: 0 1.5rem;
+    z-index: 2;
+}
+.hero-title {
+    position: relative;
+    z-index: 1;
+}

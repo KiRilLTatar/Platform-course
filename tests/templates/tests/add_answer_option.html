@@ -1,0 +1,19 @@
+{% extends 'core/layout.html' %}
+{% load static %}
+
+{% block title %} Добавление {% endblock %}
+{% block style %} {% static "courses/css/style.css" %} {% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>Добавить вариант ответа к вопросу:</h2>
+        <blockquote class="blockquote">{{ question.text }}</blockquote>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success">Добавить</button>
+            <a href="{% url 'tests:edit_test' question.test.id %}" class="btn btn-secondary">Назад</a>
+        </form>
+    </div>
+{% endblock %}

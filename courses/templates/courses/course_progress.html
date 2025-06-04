@@ -1,0 +1,64 @@
+{% extends 'core/layout.html' %}
+{% load static %}
+
+{% block title %} {{courses.title}} {% endblock %}
+{% block style %} {% static "courses/css/style.css" %} {% endblock %}
+
+{% block content %}
+    <div class="mb-3 text-center">
+        <h2 class="mb-4">{{ course.title }}</h2>
+    </div>
+    
+    <div class="row">
+        <div class="card col-md-8 mx-auto text-center" style="width: 70%;">
+            <p>{{ course.description|safe }}</p>
+        </div>
+    </div>
+    
+    <div class="mb-3 text-center">
+        Прогресс: {{ progress.completion_percent }}%
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: {{ progress.completion_percent }}%;" aria-valuenow="{{ progress.completion_percent }}" aria-valuemin="0" aria-valuemax="100">
+            {{ progress.completion_percent }}%
+            </div>
+        </div>
+    </div>
+
+    {% for module in modules %}
+        <div class="card mb-3">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="card col-md-8 mx-auto text-center" style="width: 70%; margin: 10px;">
+                        <h5>{{module.order}}. {{ module.title }}</h5>
+                        <p>{{ module.description|safe }}</p>
+                    </div>
+                </div>
+                
+            
+            <div class="row">
+                <div class="card col-md-8 mx-auto text-center" style="width: 70%; margin-bottom: 5px;">
+                    <ul class="list-group">
+                    {% for lesson in module.lessons.all %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{lesson.order}}. {{ lesson.title }}
+                            <a href="{% url 'courses:lesson_progress' lesson.id %}" class="btn btn-sm btn-outline-primary">Перейти</a>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+
+            {% if module.id in completed_modules %}
+                <div class="row">
+                    <div class="card col-md-8 mx-auto" style="width: 70%; margin: 10px;">
+                        <div class="mt-2 text-success">✔ Модуль пройден</div>
+                    </div>
+                </div>
+
+            {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

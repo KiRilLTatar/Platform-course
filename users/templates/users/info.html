@@ -1,0 +1,124 @@
+{% extends 'users/profile.html' %}
+{% load static %}
+
+{% block but %}                     
+    <button id="edit-btn" class="btn btn-light btn-lg w-100 mb-2 ">
+        <i class="fas fa-pencil-alt me-2"></i>Редактировать
+    </button>
+    <button id="save-btn" class="btn btn-light btn-lg w-100 mb-2  btn-success d-none">
+        <i class="fas fa-pencil-alt me-2"></i>Сохранить
+    </button>
+{% endblock %}
+
+{% block main_content %}
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="profile-section bg-white p-4 rounded shadow-sm mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h1>О себе</h1>
+                    </div>
+            
+                    <div id="view-mode" class="text-wrap" style="max-width: 350px;">
+                        <p id="about-text">Привет! Информация для редактирования, опишите себя</p>
+                    </div>
+            
+                    <div id="edit-mode" class="d-none">
+                        <textarea id="about-edit" class="form-control mb-3" rows="5">Привет! Информация для редактирования, опишите себя</textarea>
+                    </div>
+                </div>
+
+                <div class="profile-section bg-white p-4 rounded shadow-sm mb-4">
+                    <h2 class="mb-3">Навыки</h2>
+                    
+                    <div id="skills-view">
+                        <div class="d-flex flex-wrap gap-2" id="skills-tags">
+                            <span class="badge bg-primary">HTML5</span>
+                            <span class="badge bg-primary">CSS3</span>
+                            <span class="badge bg-primary">JavaScript</span>
+                            <span class="badge bg-primary">React</span>
+                            <span class="badge bg-primary">Git</span>
+                            <span class="badge bg-primary">Docker</span>
+                        </div>
+                    </div>
+            
+                    <div id="skills-edit" class="d-none mt-3">
+                        <input type="text" id="skills-input" class="form-control mb-2" value="HTML5, CSS3, JavaScript, React, Git, Docker">
+                        <small class="text-muted">Введите навыки через запятую</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title"><i class="fas fa-chart-line me-2"></i>Статистика</h2>
+                        <div class="row text-center">
+                            <div class="col-6 mb-3">
+                                <div class="stat-card p-3 bg-primary bg-opacity-10 rounded">
+                                    <h3 class="text-primary">2</h3>
+                                    <p class="mb-0 text-muted">Посещений</p>
+                                </div>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <div class="stat-card p-3 bg-success bg-opacity-10 rounded">
+                                    <h3 class="text-success">0</h3>
+                                    <p class="mb-0 text-muted">Курсы</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stat-card p-3 bg-info bg-opacity-10 rounded">
+                                    <h3 class="text-info">0</h3>
+                                    <p class="mb-0 text-muted">Проекты</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stat-card p-3 bg-warning bg-opacity-10 rounded">
+                                    <h3 class="text-warning">0</h3>
+                                    <p class="mb-0 text-muted">Завершенно курсов</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h2 class="mb-4">Контакты</h2>
+                    
+                    <div id="contacts-view">
+                        <p><i class="bi bi-telephone"></i> +7 (123) 456-78-90</p>
+                        <p><i class="bi bi-envelope"></i> example@example.com</p>
+                        <p><i class="bi bi-globe"></i> myportfolio.ru</p>
+                        <p><i class="bi bi-github"></i> XXXXXXX</p>
+                    </div>
+
+                    <div id="contacts-edit" class="edit-area">
+                        <div class="mb-3">
+                            <label class="form-label">Телефон</label>
+                            <input type="tel" class="form-control" id="phone" value="+7 (123) 456-78-90">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" value="example@example.com">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Портфолио</label>
+                            <input type="url" class="form-control" id="portfolio" value="myportfolio.ru">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">GitHub</label>
+                            <input type="text" class="form-control" id="github" value="XXXXXXX">
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+
+{% endblock %}
+
+
+{% block scriptt %}
+    <script src="{% static 'users/js/script.js' %}"></script>
+{% endblock %}

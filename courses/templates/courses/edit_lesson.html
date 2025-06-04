@@ -1,0 +1,59 @@
+{% extends 'core/layout.html' %}
+{% load static %}
+
+{% block title %} {{courses.title}} {% endblock %}
+{% block style %} {% static "courses/css/style.css" %} {% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-5 p-3 col-lg-2 sidebar">
+            <button onclick="location.href='{% url 'courses:manage_course' %}'" class="btn">Назад</button>
+        </div>
+        
+        <div class="col-md-9 col-lg-10 p-4">
+            <h2>Редактировать урок: {{ lesson.title }}</h2>
+
+            <form method="post">
+                {% csrf_token %}
+                {{ lesson_form.as_p }}
+                <button type="submit" name="save_lesson" class="btn btn-primary">Сохранить урок</button>
+            </form>
+
+            <hr>
+
+            <h3>Материалы урока</h3>
+            {% for material in materials %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <strong>{{ material.title }}</strong>
+                        <a href="{% url 'courses:delete_material' material.id %}" class="btn btn-sm btn-danger">Удалить материал</a>
+                        <span class="badge bg-secondary">{{ material.material_type }}</span>
+                        {% if material.material_type == 'video' and material.video_url %}
+                            <div class="mt-2">
+                                <iframe width="100%" height="315" src="{{ material.video_url }}" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        {% elif material.material_type == 'text' %}
+                            <p class="mt-2">{{ material.content }}</p>
+                        {% elif material.material_type == 'image' and material.file %}
+                            <img src="{{ material.file.url }}" class="img-fluid mt-2">
+                        {% elif material.file %}
+                            <a href="{{ material.file.url }}" download>Скачать файл</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% empty %}
+                <p>Материалы не добавлены.</p>
+            {% endfor %}
+
+            <hr>
+
+            <h4>Добавить материал</h4>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ material_form.as_p }}
+                <button type="submit" name="add_material" class="btn btn-success">Добавить</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

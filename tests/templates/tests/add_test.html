@@ -1,0 +1,17 @@
+{% extends 'core/layout.html' %}
+{% load static %}
+
+{% block title %} Добавление теста {% endblock %}
+{% block style %} {% static "courses/css/style.css" %} {% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>Добавить тест в модуль: {{ module.title }}</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success">Добавить тест</button>
+            <a href="{% url 'courses:edit_course' module.course.id %}" class="btn btn-secondary">Назад</a>
+        </form>
+    </div>
+{% endblock %}

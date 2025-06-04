@@ -1,0 +1,82 @@
+{% extends 'core/layout.html' %}
+{% load static %}
+
+{% block title %} {{courses.title}} {% endblock %}
+{% block style %} {% static "courses/css/style.css" %} {% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-5 p-3 col-lg-2 sidebar">
+            <button onclick="location.href='{% url 'courses:manage_course' %}'" class="btn">Назад</button>
+        </div>
+        
+        <div class="col-md-9 col-lg-10 p-4">
+            <div class="container mt-5">
+                <h2>Редактировать курс: {{ course.title }}</h2>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        {{ form.title.label_tag }} 
+                        {{ form.title }}
+                        {{ form.title.errors }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.description.label_tag }} 
+                        {{ form.description }}
+                        {{ form.description.errors }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.promo.label_tag }} 
+                        {{ form.promo }}
+                        {{ form.promo.errors }}
+                    </div>
+                    <div class="form-check mb-3">
+                        {{ form.is_published }} {{ form.is_published.label_tag }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                </form>
+                
+                <br>
+                
+                <h3>Модули курса</h3>
+                <a href="{% url 'courses:add_module' course.id %}" class="btn btn-sm btn-outline-primary mb-3">Добавить модуль</a>
+                <ul class="list-group">
+                    {% for module in course.modules.all %}
+                        <li class="list-group-item">
+                            <h3><strong>{{module.order}}.{{ module.title }}</strong></h3><br>
+                            <a href="{% url 'courses:delete_module' module.id %}" class="btn btn-sm btn-danger">Удалить модуль</a>
+                        </li>
+                        <a href="{% url 'courses:add_lesson' module.id %}" class="btn btn-sm btn-outline-success mb-2">Добавить урок</a>
+                        <ul class="list-group mb-4">
+                            {% for lesson in module.lessons.all %}
+                                <li class="list-group-item">
+                                    <a class="nav-link" aria-current="page" href="{% url 'courses:edit_lesson' lesson.id%}"><strong>{{lesson.order}}. {{ lesson.title }}</strong></a><br>
+                                    <a href="{% url 'courses:delete_lesson' lesson.id %}" class="btn btn-sm btn-danger">Удалить урок</a>
+                                </li>
+                            {% empty %}
+                                <li class="list-group-item">Уроков пока нет</li>
+                            {% endfor %}
+                        </ul>
+                        <h6 class="mt-4">Тесты модуля</h6>
+                        <ul class="list-group mb-2">
+                        {% for test in module.tests.all %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ test.title }} — {{ test.passing_score }}%
+                            <a href="{% url 'tests:edit_test' test.id %}" class="btn btn-sm btn-outline-primary">Редактировать</a>
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item">Нет тестов</li>
+                        {% endfor %}
+                        </ul>
+                        <a href="{% url 'tests:add_test' module.id %}" class="btn btn-sm btn-outline-success">Добавить тест</a>
+                    {% empty %}
+                        <li class="list-group-item">Модулей пока нет</li>
+                    {% endfor %}
+                </ul>
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

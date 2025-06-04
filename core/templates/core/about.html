@@ -1,0 +1,92 @@
+{% extends "core/layout.html" %}
+{% load static %}
+
+{% block title %}О нас{% endblock %}
+
+
+{% block content %}
+    <div class="container my-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4 fw-bold" style="color: #7b2cbf;">О нас</h1>
+            <p class="lead">UBStady — платформа курсов для преподавателей и студентов с возможностью аналитики и создания собственной программы обучения.</p>
+            <p class="text-muted">Мы предлагаем большой выбор курсов для профессионального и личностного развития.</p>
+        </div>
+
+        <div class="row text-center mb-5">
+            <div class="col-md-4">
+                <div class="p-4 rounded shadow-sm" style="background-color: #f3e8ff;">
+                    <h2 style="color: #7b2cbf;">222</h2>
+                    <p class="fw-semibold">Курсов</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4 rounded shadow-sm" style="background-color: #f3e8ff;">
+                    <h2 style="color: #7b2cbf;">222</h2>
+                    <p class="fw-semibold">Студентов</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4 rounded shadow-sm" style="background-color: #f3e8ff;">
+                    <h2 style="color: #7b2cbf;">222</h2>
+                    <p class="fw-semibold">Преподавателей</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="py-5 px-4 rounded mb-5" style="background-color: #e0c3fc;">
+            <h2 class="text-center mb-5 text-white">Как устроена платформа UBStady</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="bg-white p-4 rounded shadow text-dark">
+                        <h5 class="text-muted">01</h5>
+                        <h6>Курсы обновляются регулярно</h6>
+                        <p class="text-muted">Получайте знания, которые соответствуют требованиям рынка.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="bg-white p-4 rounded shadow text-dark">
+                        <h5 class="text-muted">02</h5>
+                        <h6>Профессиональные преподаватели</h6>
+                        <p class="text-muted">Делятся опытом и необходимыми инструментами для работы.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="bg-white p-4 rounded shadow text-dark">
+                        <h5 class="text-muted">03</h5>
+                        <h6>Практика важнее теории</h6>
+                        <p class="text-muted">Проверочные тесты и практические задачи помогают закрепить знания.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mb-5">
+            <h2 class="mb-4" style="color: #7b2cbf;">Направления обучения</h2>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <span class="badge text-dark fs-5 py-2 px-3 border" style="background-color: #b693dc;">Программирование</span>
+                <span class="badge text-dark fs-5 py-2 px-3 border" style="background-color: #b693dc;">Дизайн</span>
+                <span class="badge text-dark fs-5 py-2 px-3 border" style="background-color: #b693dc;">Аналитика</span>
+                <span class="badge text-dark fs-5 py-2 px-3 border" style="background-color: #b693dc;">Маркетинг</span>
+                <span class="badge text-dark fs-5 py-2 px-3 border" style="background-color: #b693dc;">Все курсы</span>
+            </div>
+        </div>
+
+        <div class="text-center my-5">
+            <h2 class="mb-4" style="color: #7b2cbf;">Основатели платформы</h2>
+            <div class="row justify-content-center g-4">
+                <div class="col-6 col-md-4 col-lg-3">
+                    <img src="{% static 'core/img/founder1.png' %}" class="img-fluid rounded-circle mb-2" alt="Татаринцев Кирилл">
+                    <h5>Татаринцев Кирилл</h5>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3">
+                    <img src="{% static 'core/img/founder2.png' %}" class="img-fluid rounded-circle mb-2" alt="Любимов Даниил">
+                    <h5>Любимов Даниил</h5>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3">
+                    <img src="{% static 'core/img/founder3.png' %}" class="img-fluid rounded-circle mb-2" alt="Струговец Амир">
+                    <h5>Струговец Амир</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

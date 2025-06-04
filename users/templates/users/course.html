@@ -1,0 +1,26 @@
+{% extends 'users/profile.html' %}
+
+
+{% block main_content %}
+
+    {% if course_data %}
+        {% for item in course_data %}
+            <div class="course-section">
+                <h2 class="course-title">{{ item.course.title }}</h2>
+                <p class="course-subtitle">{{item.course.descriprion|truncatechars:20}}</p>
+                
+                <a href="{% url 'courses:course_progress' item.course.id %}" class="btn btn-primary">Перейти</a>
+                
+                <div class="py-2 bg-line"> 
+                    <hr class="my-0">
+                </div> 
+
+                <p class="card-text">Прогресс: {{ item.progress.completion_percent }}%</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Вы ещё не начали проходить ни один курс.</p>
+    {% endif %}
+
+{% endblock %}
+

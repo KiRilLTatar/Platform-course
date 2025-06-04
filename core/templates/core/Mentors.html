@@ -1,0 +1,250 @@
+{% extends "core/layout.html" %}
+{% load static %}
+
+{% block title %}  Наши преподаватели  {% endblock %}
+
+{% block extra_css %}
+<style>
+    body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+        }
+        
+        h2 {
+            color: #7b2cbf;
+            border-bottom: 2px solid #7b2cbf;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+        
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .teacher-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 25px;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .teacher-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .teacher-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .teacher-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+            border: 3px solid #7b2cbf;
+        }
+        
+        .teacher-titles {
+            flex: 1;
+        }
+        
+        .teacher-name {
+            font-size: 1.3em;
+            color: #000000;
+            margin: 0 0 5px 0;
+        }
+        
+        .teacher-subject {
+            font-weight: bold;
+            color: #7b2cbf;
+            margin-bottom: 5px;
+            font-size: 0.95em;
+        }
+        
+        .teacher-experience {
+            color: #000000;
+            font-size: 0.9em;
+        }
+        
+        .teacher-bio {
+            margin-bottom: 15px;
+            flex: 1;
+        }
+        
+        .teacher-skills {
+            margin-top: 15px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .skill-tag {
+            display: inline-block;
+            background: #e0c3fc;
+            color: #7b2cbf;
+            padding: 5px 10px;
+            border-radius: 20px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            font-size: 0.85em;
+        }
+        
+        .about-teaching {
+            background: #e0c3fc;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+        
+</style>
+{% endblock %}
+
+{% block content %}
+    <h1>Наши преподаватели</h1>
+    <div class="about-teaching">
+        <h2>Наш подход к обучению</h2>
+        <p>Все наши преподаватели — практикующие специалисты, которые не только преподают, но и работают в IT-индустрии. Мы уверены, что только так можно давать актуальные знания, соответствующие современным требованиям рынка. На занятиях вы получите не только теорию, но и реальные практические навыки, которые сразу сможете применить в работе.</p>
+    </div>
+    
+    <div class="teachers-grid">
+        <div class="teacher-card">
+            <div class="teacher-header">
+                <img src="C:\Users\amiks\OneDrive\Изображения\Снимки экрана\Снимок экрана 2025-05-15 132429.png" alt="Фото преподавателя" class="teacher-photo">
+                <div class="teacher-titles">
+                    <h3 class="teacher-name">Иванов Алексей Петрович</h3>
+                    <div class="teacher-subject">Программирование на Python</div>
+                    <div class="teacher-experience">Стаж: 8 лет</div>
+                </div>
+            </div>
+            <div class="teacher-bio">
+                <p>Кандидат технических наук, автор 3 учебных пособий по программированию. Работал ведущим разработчиком в крупных IT-компаниях.</p>
+            </div>
+            <div class="teacher-skills">
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">Django</span>
+                <span class="skill-tag">Машинное обучение</span>
+                <span class="skill-tag">Алгоритмы</span>
+            </div>
+        </div>
+        
+        <div class="teacher-card">
+            <div class="teacher-header">
+                <img src="https://via.placeholder.com/150" alt="Фото преподавателя" class="teacher-photo">
+                <div class="teacher-titles">
+                    <h3 class="teacher-name">Смирнова Елена Владимировна</h3>
+                    <div class="teacher-subject">Веб-разработка</div>
+                    <div class="teacher-experience">Стаж: 6 лет</div>
+                </div>
+            </div>
+            <div class="teacher-bio">
+                <p>Фронтенд-разработчик с большим опытом работы. Специализируется на создании современных пользовательских интерфейсов.</p>
+            </div>
+            <div class="teacher-skills">
+                <span class="skill-tag">HTML/CSS</span>
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">React</span>
+                <span class="skill-tag">UI/UX</span>
+            </div>
+        </div>
+        
+        <div class="teacher-card">
+            <div class="teacher-header">
+                <img src="https://via.placeholder.com/150" alt="Фото преподавателя" class="teacher-photo">
+                <div class="teacher-titles">
+                    <h3 class="teacher-name">Петров Дмитрий Сергеевич</h3>
+                    <div class="teacher-subject">Основы программирования</div>
+                    <div class="teacher-experience">Стаж: 10 лет</div>
+                </div>
+            </div>
+            <div class="teacher-bio">
+                <p>Автор курса "От нуля к коду". Специализируется на обучении начинающих программистов. Умеет объяснять сложные вещи простым языком.</p>
+            </div>
+            <div class="teacher-skills">
+                <span class="skill-tag">Алгоритмы</span>
+                <span class="skill-tag">Логика</span>
+                <span class="skill-tag">C++</span>
+                <span class="skill-tag">Java</span>
+            </div>
+        </div>
+        
+        <div class="teacher-card">
+            <div class="teacher-header">
+                <img src="https://via.placeholder.com/150" alt="Фото преподавателя" class="teacher-photo">
+                <div class="teacher-titles">
+                    <h3 class="teacher-name">Козлова Анна Игоревна</h3>
+                    <div class="teacher-subject">Мобильная разработка</div>
+                    <div class="teacher-experience">Стаж: 5 лет</div>
+                </div>
+            </div>
+            <div class="teacher-bio">
+                <p>Full-stack разработчик мобильных приложений. Участвовала в создании 15+ приложений для iOS и Android.</p>
+            </div>
+            <div class="teacher-skills">
+                <span class="skill-tag">Swift</span>
+                <span class="skill-tag">Kotlin</span>
+                <span class="skill-tag">Flutter</span>
+                <span class="skill-tag">Firebase</span>
+            </div>
+        </div>
+        
+        <div class="teacher-card">
+            <div class="teacher-header">
+                <img src="https://via.placeholder.com/150" alt="Фото преподавателя" class="teacher-photo">
+                <div class="teacher-titles">
+                    <h3 class="teacher-name">Васильев Максим Олегович</h3>
+                    <div class="teacher-subject">Базы данных</div>
+                    <div class="teacher-experience">Стаж: 7 лет</div>
+                </div>
+            </div>
+            <div class="teacher-bio">
+                <p>Архитектор баз данных. Специалист по SQL и NoSQL решениям. Опыт работы с высоконагруженными системами.</p>
+            </div>
+            <div class="teacher-skills">
+                <span class="skill-tag">SQL</span>
+                <span class="skill-tag">PostgreSQL</span>
+                <span class="skill-tag">MongoDB</span>
+                <span class="skill-tag">Redis</span>
+            </div>
+        </div>
+        
+        <div class="teacher-card">
+            <div class="teacher-header">
+                <img src="https://via.placeholder.com/150" alt="Фото преподавателя" class="teacher-photo">
+                <div class="teacher-titles">
+                    <h3 class="teacher-name">Николаева Татьяна Викторовна</h3>
+                    <div class="teacher-subject">Тестирование ПО</div>
+                    <div class="teacher-experience">Стаж: 4 года</div>
+                </div>
+            </div>
+            <div class="teacher-bio">
+                <p>QA Lead в международной компании. Эксперт по автоматизированному тестированию и процессам обеспечения качества.</p>
+            </div>
+            <div class="teacher-skills">
+                <span class="skill-tag">Selenium</span>
+                <span class="skill-tag">Jest</span>
+                <span class="skill-tag">Cypress</span>
+                <span class="skill-tag">CI/CD</span>
+            </div>
+        </div>
+    </div>
+{% endblock %}

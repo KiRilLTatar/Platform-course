@@ -1,0 +1,28 @@
+{% extends 'core/layout.html'%}
+{% load static %}
+
+{% block content %}
+<div class="container d-flex flex-column align-items-center" style="width: 70%;">
+    {% for course in courses %}
+        <a href="{% url 'courses:course_detail' course.id %}" class="text-decoration-none text-dark mb-4 w-100">
+            <div class="card border-primary shadow-sm">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        {% if course.promo %}
+                            <img src="{{ course.promo.url }}"
+                                class="img-fluid rounded-start" alt="Course image">
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ course.title|truncatechars:50 }}</h5>
+                            <p class="card-text text-danger">автор: {{ course.author }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+</div>
+{% endblock %}

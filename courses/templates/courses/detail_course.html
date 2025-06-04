@@ -1,0 +1,154 @@
+{% extends 'core/layout.html' %}
+{% load static %}
+
+{% block title %} {{courses.title}} {% endblock %}
+{% block style %} {% static "courses/css/style.css" %} {% endblock %}
+
+{% block content %}
+<div style="background-color: #f8f9fa">
+    <div style="background-color:rgb(212, 160, 229); width: 100%; padding: 2rem 0; border-bottom: 1px solid #ccc;">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">UBSTADY</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'courses:course_list' %}">Курсы</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{courses.title}}</li>
+                </ol>
+            </nav>
+
+            <h1 style="max-width:20em; margin-bottom: 1em; margin-top: 0.5em;">{{ courses.title }}</h1>
+            
+            <div class="d-flex align-items-center mb-3">
+                <span class="rating me-2">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                </span>
+                <span class="me-3">None</span>
+                <span>None</span>
+            </div>
+
+            <div class="d-flex align-items-center mb-4">
+                <i class="bi bi-geo-alt-fill me-2"></i>
+                <span class="mentor-name lead"> {{courses.author}} </span>
+            </div>
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+                <div class="d-flex mb-4">
+                    {% if is_enrolled %}
+                        <form action="{% url 'courses:remove_course' course_id=courses.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-danger me-2">
+                                <i class="bi bi-trash"></i> Удалить курс
+                            </button>
+                        </form>
+                    {% else %}
+                        <form action="{% url 'courses:add_course' course_id=courses.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-primary me-2">
+                                <i class="bi bi-plus-circle"></i> Добавить курс
+                            </button>
+                        </form>
+                    {% endif %}
+                    
+                    <button class="btn btn-outline-secondary me-2">
+                        <i class="bi bi-share"></i> Поделиться
+                    </button>
+                </div>
+            {% else %}
+                <div class="d-flex mb-4">
+                    <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-outline-primary me-2">
+                        <i class="bi bi-box-arrow-in-right"></i> Войти для записи
+                    </a>
+                    <button class="btn btn-outline-secondary me-2">
+                        <i class="bi bi-share"></i> Поделиться
+                    </button>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="py-2 bg-line">
+        <hr class="my-0">
+    </div>
+     
+    <div class="container py-5">
+        <div class="row g-4">
+          <div class="col-lg-8">
+            <div class="card p-4 mb-4">
+              <h5 class="fw-bold">Чему вы научитесь на этом курсе</h5>
+              <p>{{courses.description|safe}}</p>
+            </div>
+      
+            <div class="mb-4">
+              <h5 class="fw-bold">Цели и особенности</h5>
+              <div class="row">
+                <div class="col-md-6">
+                  <ul class="list-unstyled">
+                    <li>✅ Создание сайтов и приложений</li>
+                    <li>✅ Работа над реальными проектами</li>
+                    <li>✅ Портфолио и карьера</li>
+                    <li>✅ Современные технологии</li>
+                  </ul>
+                </div>
+                <div class="col-md-6">
+                  <ul class="list-unstyled">
+                    <li>✅ Наставничество</li>
+                    <li>✅ HTML/CSS/JS</li>
+                    <li>✅ Лучшие практики</li>
+                    <li>✅ Применение в жизни</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+      
+            <div class="mb-4">
+              <h5 class="fw-bold">Требования</h5>
+              <ul class="list-unstyled">
+                <li>✅ Компьютер с интернетом</li>
+                <li>✅ Без начальных знаний</li>
+                <li>✅ Любая ОС: Windows, Mac, Linux</li>
+                <li>✅ Всё необходимое будет предоставлено</li>
+              </ul>
+            </div>
+      
+            <div>
+                <h5 class="fw-bold mb-3">Содержание курса</h5>
+                {% for module in modules %}
+                    <div class="accordion" id="modulesAccordion">
+                        <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                            {{module.title}}
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show">
+                            <div class="accordion-body">
+                            <ul class="list-unstyled">
+                                {% for lesson in module.lessons.all %}
+                                    <li>
+                                        <strong>{{ lesson.title }}</strong><br>
+                                        &emsp; {{ lesson.description|truncatechars:50 }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+          </div>
+      
+        </div>
+      </div> 
+{% endblock %}

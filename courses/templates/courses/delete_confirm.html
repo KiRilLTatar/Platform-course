@@ -1,0 +1,17 @@
+{% extends 'core/layout.html' %}
+{% load static %}
+
+{% block title %} {{courses.title}} {% endblock %}
+{% block style %} {% static "courses/css/style.css" %} {% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>Удалить "{{ object }}"?</h2>
+        <p>Это действие нельзя отменить.</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Удалить</button>
+            <a href="{% url cancel_url cancel_args.0 %}" class="btn btn-secondary">Отмена</a>
+        </form>
+    </div>
+{% endblock %}

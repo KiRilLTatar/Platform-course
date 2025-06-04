@@ -1,0 +1,26 @@
+{% extends 'core/layout.html' %}
+{% load static %}
+
+{% block title %} {{courses.title}} {% endblock %}
+{% block style %} {% static "courses/css/style.css" %} {% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-5 p-3 col-lg-2 sidebar">
+            <button onclick="location.href='{% url 'courses:edit_course' course.id %}'" class="btn">Назад</button>
+        </div>
+        
+        <div class="col-md-9 col-lg-10 p-4">
+            <div class="container mt-5">
+                <h2>Добавить модуль в курс: {{ course.title }}</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-success">Добавить</button>
+                    <a href="{% url 'courses:edit_course' course.id %}" class="btn btn-secondary">Назад</a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
