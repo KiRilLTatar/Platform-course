@@ -93,4 +93,20 @@ def profile_later_course(request):
 
 @login_required
 def profile_statistic(request):
-    return render(request, 'users/statistic.html')
+    progresses = Progress.objects.filter(user=request.user)
+    course_ids = [p.course_id for p in progresses]
+    courses = Couse.objects.filter(id__in=course_ids)
+    course_map = {c.id: c for c in courses}
+
+    data = []
+    for progress in progresses:
+        course = course_map.get(progress.course_id)
+        if course:
+            remaining = 100 - progress.completion_percent
+            data.append({
+                'course': course,
+                'progress': progress,
+                'remaining_percent': remaining,
+            })
+
+    return render(request, 'users/statistic.html', {'course_data': data})

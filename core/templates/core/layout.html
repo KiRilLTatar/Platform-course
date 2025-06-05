@@ -24,11 +24,14 @@
                   </button>
 
                   <div class="collapse navbar-collapse" id="navbarNav">
-                    <input 
-                        type="search" 
-                        class="form-control border-start-0 ps-2" 
-                        placeholder="Поиск курсов..." 
-                        style="padding-left: 10px; padding-right: 20px; margin-left: 20px; margin-right: 100px;">
+                        <form method="get" action="{% url 'courses:course_list' %}" class="d-flex" style="padding-left: 10px; padding-right: 20px; margin-left: 20px; margin-right: 100px;">
+                            <input 
+                                type="search" 
+                                name="q"
+                                class="form-control border-start-0 ps-2" 
+                                placeholder="Поиск курсов..." 
+                                style="padding-left: 10px; padding-right: 20px; margin-left: 20px; margin-right: 100px;">
+                        </form>
 
 
                     <ul class="navbar-nav ">
@@ -92,7 +95,7 @@
                         <div class="footer-column-title">О сайте</div>
                         <a href="{% url 'about' %}" class="footer-link">О Нас</a>
                         <a href="{% url 'mentors' %}" class="footer-link">Преподователи</a>
-                        <a href="#" class="footer-link">Курсы</a>
+                        <a href="{% url 'courses:course_list' %}" class="footer-link">Курсы</a>
                         <a href="#" class="footer-link">Наши контакты</a>
                     </div>
 

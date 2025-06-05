@@ -1,6 +1,96 @@
-{% extends 'users/profile.html' %}
+{% extends 'users/profile.html' %} 
 
+{% block title %}Моя статистика по курсам{% endblock %} 
 
 {% block main_content %}
-    <h1>в разработке</h1>
+    <h1 class="mb-4">Моя статистика по курсам</h1> 
+
+    {% if course_data %}
+        {% for item in course_data %}
+            <div class="course-section mb-4 p-3 bg-white rounded-lg shadow-sm">
+                <h2 class="course-title text-purple-700 text-2xl font-bold mb-2">{{ item.course.title }}</h2>
+                <p class="course-subtitle text-gray-600 text-base mb-3">{{ item.course.description|truncatechars:100 }}</p>
+
+                <a href="{% url 'courses:course_progress' item.course.id %}" class="btn bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105 mb-3">
+                    Перейти к курсу
+                </a>
+
+                <canvas id="progressChart{{ forloop.counter }}" class="w-full max-w-xs mx-auto mb-3" width="200" height="200"></canvas>
+
+                <p class="text-lg font-semibold text-center">Прогресс: <span class="text-purple-600">{{ item.progress.completion_percent }}%</span></p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="text-center text-gray-500 text-lg">Вы ещё не начали проходить ни один курс.</p>
+    {% endif %}
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var courseDataExists = {% if course_data %}true{% else %}false{% endif %};
+            console.log('course_data существует:', courseDataExists);
+
+            if (courseDataExists) {
+                {% for item in course_data %}
+                var chartId = 'progressChart{{ forloop.counter }}';
+                var completionPercent = {{ item.progress.completion_percent }};
+                var remainingPercent = {{ item.remaining_percent }};
+
+
+                var canvasElement = document.getElementById(chartId);
+                if (!canvasElement) {
+                    return; 
+                }
+
+                var ctx = canvasElement.getContext('2d');
+                if (!ctx) {
+                    return; 
+                }
+
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Пройдено', 'Осталось'], 
+                        datasets: [{
+                            data: [completionPercent, remainingPercent],
+                            backgroundColor: ['#7b2cbf', '#e0c3fc'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: false, 
+                        cutout: '70%', 
+                        plugins: {
+                            legend: {
+                                position: 'bottom', 
+                                labels: {
+                                    color: '#343a40', 
+                                    font: {
+                                        size: 14 
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed !== null) {
+                                            label += context.parsed + '%'; 
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+                {% endfor %}
+            }
+        });
+    </script>
 {% endblock %}
+

@@ -1,61 +1,98 @@
 {% extends 'core/layout.html' %}
 {% load static %}
 
-{% block title %} {{lesson.title}} {% endblock %}
+{% block title %} {{courses.title}} {% endblock %}
 {% block style %} {% static "courses/css/style.css" %} {% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-md-3">
-            <div class="list-group sticky-top">
-            <div class="list-group-item active">Навигация</div>
-            {% for module in modules %}
-                <div class="list-group-item fw-bold">{{ module.title }}</div>
-                {% for l in module.lessons.all %}
-                {% if l.id in allowed_ids %}
-                    <a href="{% url 'courses:lesson_progress' l.id %}" class="list-group-item {% if l.id == lesson.id %}active{% endif %}">
-                    {{ l.title }}
-                    {% if l.id in completed_lesson_ids %}
-                        <span class="badge bg-success float-end">✔</span>
-                    {% endif %}
+    <body class="bg-light font-sans">
+    <section class="py-5">
+        <div class="container">
+        <div class="row gx-4 gy-4">
+            <div class="col-md-9">
+            <div class="bg-white p-4 rounded shadow">
+                <h2 class="h4 fw-bold text-primary mb-4">{{lesson.id}}. {{ lesson.title }}</h2>
+
+                <div class="mb-4 text-secondary">
+                <h5 class="text-primary mb-2">Теория урока</h5>
+                    <p style="word-wrap: break-word; white-space: normal;">
+                        {{ lesson.description|safe  }}
+                    </p>
+                </div>
+
+                <div class="mb-4">
+                <h5 class="text-primary mb-2">Дополнительные материалы</h5>
+                <ul class="ps-3 text-secondary">
+                    
+                    {% for material in materials %}
+                        <li class="mb-2">
+                        <div><strong>{{ material.title }}</strong> ({{ material.get_material_type_display }})</div>
+                        
+                        {% if material.file %}
+                            <a href="{{ material.file.url }}" download class="btn btn-outline-primary btn-sm mt-1">
+                             Скачать файл
+                            </a>
+                        {% elif material.video_url %}
+                            <p>{{ material.video_url }}</p>
+                            <div class="ratio ratio-16x9 mt-2">
+                                <iframe src="{{ material.video_url }}" allowfullscreen></iframe>
+                            </div>
+                        {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+                </div>
+
+            <div class="d-flex justify-content-between">
+                {% if previous_lesson and previous_lesson.id in allowed_ids %}
+                    <a href="{% url 'courses:lesson_progress' previous_lesson.id %}" class="btn btn-secondary">
+                         Предыдущий урок
                     </a>
                 {% else %}
-                    <div class="list-group-item disabled text-muted">{{ l.title }} 🔒</div>
+                    <span></span>
                 {% endif %}
-                {% endfor %}
-            {% endfor %}
+
+                {% if next_lesson and next_lesson.id in allowed_ids %}
+                    <a href="{% url 'courses:lesson_progress' next_lesson.id %}" class="btn btn-primary">
+                        Следующий урок 
+                    </a>
+                {% endif %}
             </div>
-        </div>
-
-        <div class="col-md-9">
-            <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
-                <h2 >{{ lesson.title }}</h2>
+            </div>
             </div>
 
-
-            <div class="card mx-auto" style="overflow: hidden; width: 70%;">
-                <div class="card-body">
-                    <p class="card-text ">{{ lesson.description|safe }}</p>
+            <div class="col-md-3">
+                <div class="p-4 rounded shadow" style="background: #e0c3fc;">
+                    <h5 class="fw-semibold text-primary mb-3">Содержание курса</h5>
+                    <ul class="list-unstyled text-secondary">
+                        {% for module in modules %}
+                        <li class="mb-2">
+                            <div class="fw-semibold text-primary">{{ module.title }}</div>
+                            <ul class="ps-3 mt-1">
+                                {% for l in module.lessons.all %}
+                                    {% if l.id == current_lesson_id %}
+                                        <li class="small text-muted bg-white rounded px-2 py-1" style="word-wrap: break-word; white-space: normal;">
+                                            {{ l.order|stringformat:"d" }} {{ l.title }} (Вы здесь)
+                                        </li>
+                                    {% elif l.id in allowed_ids %}
+                                        <li class="small">
+                                            <a href="{% url 'courses:lesson_progress' l.id %}" class="text-decoration-none text-secondary" style="word-wrap: break-word; white-space: normal;">
+                                                {{ l.order|stringformat:"d" }} {{ l.title }}
+                                            </a>
+                                        </li>
+                                    {% else %}
+                                        <li class="small text-muted" style="word-wrap: break-word; white-space: normal;">{{ l.order|stringformat:"d" }} {{ l.title }}</li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
-
-            {% for material in lesson.materials.all %}
-                <div class="card mb-3">
-                    <div class="card-body">
-                    <h5>{{ material.title }}</h5>
-                    {% if material.material_type == 'text' %}
-                        <p>{{ material.content|safe }}</p>
-                    {% elif material.material_type == 'video' %}
-                        <iframe src="{{ material.video_url }}" width="100%" height="400"></iframe>
-                    {% elif material.material_type == 'image' %}
-                        <img src="{{ material.file.url }}" class="img-fluid">
-                    {% elif material.file %}
-                        <a href="{{ material.file.url }}" download>Скачать файл</a>
-                    {% endif %}
-                    </div>
-                </div>
-            {% endfor %}
         </div>
-    </div>
+        </div>
+    </section>
+    </body>
 
 {% endblock %}

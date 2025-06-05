@@ -10,9 +10,14 @@ from .forms import CourseForm, ModuleForm, LessonForm, MaterialForm
 
 # Create your views here.
 def course_list(request):
+    query = request.GET.get('q', '')
     courses = Couse.objects.all()
     material = Material.objects.all()
-    return render(request, 'courses/list_course.html', {'courses': courses, 'material': material})
+    if query:
+        courses = courses.filter(title__icontains=query)
+    return render(request, 'courses/list_course.html', {'courses': courses, 
+                                                        'material': material,
+                                                        'query': query,})
 
 def course_detail(request, course_id):
     try:
@@ -242,10 +247,19 @@ def lesson_detail_progress(request, lesson_id):
     total_modules = course.modules.count()
     progress.update_progress(lesson.module.id, total_modules)
 
+    lesson_list = list(all_lessons)
+    current_index = lesson_list.index(lesson)
+
+    previous_lesson = lesson_list[current_index - 1] if current_index > 0 else None
+    next_lesson = lesson_list[current_index + 1] if current_index < len(lesson_list) - 1 else None
+
     return render(request, 'courses/lesson_detail.html', {
         'lesson': lesson,
         'modules': modules,
         'completed_lesson_ids': completed_lesson_ids,
         'allowed_ids': allowed_ids,
+        'materials': lesson.materials.all(),
+        'previous_lesson': previous_lesson,
+        'next_lesson': next_lesson,
     })
 

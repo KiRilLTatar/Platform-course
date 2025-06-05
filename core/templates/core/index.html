@@ -11,7 +11,9 @@
             <p class="lead mb-5" style="color: rgb(255, 255, 255);">Бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла </p>
             <div class="search-container">
                 <div class="search-box">
-                    <input type="text" class="form-control search-input" placeholder="Поиск">
+                    <form method="get" action="{% url 'courses:course_list' %}" class="d-flex">
+                        <input type="text" class="form-control search-input" placeholder="Поиск">
+                    </form>
                     <button class="btn btn-primary search-btn">Поиск</button>
                 </div>
             </div>
